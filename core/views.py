@@ -7,12 +7,7 @@ import requests
 
 class GetSiteHTMLAPIView(APIView):
     def get_html(self, url):
-        proxies = {
-            'http': 'https://apiparsing.pythonanywhere.com/',
-            'https': 'https://apiparsing.pythonanywhere.com/',
-        }
-
-        response = requests.get(url, proxies=proxies)
+        response = requests.get(url)
         html_code = response.text
         return html_code
 
