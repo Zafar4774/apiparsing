@@ -1,22 +1,15 @@
-# views.py
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import requests
 
-
-class GetSiteHTMLAPIView(APIView):
-    def get_html(self, url):
-        response = requests.get(url)
-        html_code = response.text
-        return html_code
-
+class GetInstagramData(APIView):
     def get(self, request):
-        url = request.query_params.get('url')
-
-        if not url:
-            return Response({'error': 'URL parameter is required'}, status=400)
-
-        html_code = self.get_html(url)
-
-        return Response({'html_code': html_code})
+        url = 'https://www.instagram.com/'
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                return Response({"response": response.text})
+            else:
+                return Response({"error": "Ошибка при выполнении запроса. Код состояния: {}".format(response.status_code)})
+        except requests.exceptions.RequestException as e:
+            return Response({"error": "Произошла ошибка при выполнении запроса: {}".format(e)})

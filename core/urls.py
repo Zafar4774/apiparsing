@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import GetSiteHTMLAPIView
+from .views import GetInstagramData
 
 urlpatterns = [
-    path('get_tags/', GetSiteHTMLAPIView.as_view(), name='get_tags'),
+    path('get_tags/', GetInstagramData.as_view(), name='get_tags'),
 ]
