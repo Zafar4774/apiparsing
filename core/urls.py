@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import get_tags
+from .views import GetSiteHTMLAPIView
 
 urlpatterns = [
-    path('get_tags/', get_tags, name='get_tags'),
+    path('get_tags/', GetSiteHTMLAPIView.as_view(), name='get_tags'),
 ]

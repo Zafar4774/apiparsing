@@ -1,14 +1,22 @@
-from django.http import JsonResponse
+# views.py
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
 import requests
-from bs4 import BeautifulSoup
 
 
-def get_tags(request):
-    if request.method == 'POST':
-        url = request.POST.get('url')
+class GetSiteHTMLAPIView(APIView):
+    def get_html(self, url):
         response = requests.get(url)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        tags = [tag.name for tag in soup.find_all()]
-        return JsonResponse({'tags': tags})
-    else:
-        return JsonResponse({'error': 'Only POST requests are allowed'})
+        html_code = response.text
+        return html_code
+
+    def get(self, request):
+        url = request.query_params.get('url')
+
+        if not url:
+            return Response({'error': 'URL parameter is required'}, status=400)
+
+        html_code = self.get_html(url)
+
+        return Response({'html_code': html_code})
