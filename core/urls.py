@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import GetInstagramData
+from .views import InstagramParser
 
 urlpatterns = [
-    path('get_tags/', GetInstagramData.as_view(), name='get_tags'),
+    path('parse_page/', InstagramParser.as_view(), name='parse_page'),
 ]
