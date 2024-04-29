@@ -4,6 +4,7 @@ from rest_framework import status
 import requests
 from bs4 import BeautifulSoup
 
+
 class InstagramParser(APIView):
     def post(self, request, *args, **kwargs):
         user_url = request.data.get('url')
